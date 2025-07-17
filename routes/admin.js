@@ -64,15 +64,38 @@ adminRouter.post("/course", addMiddleware, async function(req, res) {
     })
 })
 
-adminRouter.put("/course", function(req, res) {
+adminRouter.put("/course", adminMiddleware, async function(req, res) {
+    const adminId = req.userId;
+
+    const { title, description, imageUrl, price, courseId } = req.body;
+
+    // creating a web3 saas in 6 hours
+    const course = await courseModel.updateOne({
+        _id: courseId, 
+        creatorId: adminId 
+    }, {
+        title: title, 
+        description: description, 
+        imageUrl: imageUrl, 
+        price: price
+    })
+
     res.json({
-        message: "update course endpoint"
+        message: "Course updated",
+        courseId: course._id
     })
 })
 
-adminRouter.put("/course", function(req, res) {
+adminRouter.get("/course/bulk", adminMiddleware,async function(req, res) {
+    const adminId = req.userId;
+
+    const courses = await courseModel.find({
+        creatorId: adminId 
+    });
+
     res.json({
-        message: "update course"
+        message: "Course updated",
+        courses
     })
 })
 

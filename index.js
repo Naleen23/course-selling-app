@@ -13,7 +13,7 @@ app.use("/api/v1/course", courseRouter);
 
 
 async function main() {
-    await mongoose.connect("mongodb+srv://nalinrajput8:D7u9Mgrzol4HwTCn@nalin2312.pekaq.mongodb.net/course-selling-app");
+    await mongoose.connect("")
     app.listen(7777);
     console.log("Server is running on port 7777");
 }
